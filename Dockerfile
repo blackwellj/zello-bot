@@ -1,17 +1,17 @@
 FROM phusion/baseimage:0.9.22
-MAINTAINER Carsten Perthel <carsten@cpesoft.com>
+MAINTAINER James Blackwell
 
 # set proxy (uncomment and modify when needed)
 #ENV http_proxy "http://user:password@proxy:port"
 #ENV https_proxy "http://user:password@proxy:port"
 
 # Ensure UTF-8
-RUN locale-gen de_DE.UTF-8
-ENV LANG       de_DE.UTF-8
-ENV LC_ALL     de_DE.UTF-8
+RUN locale-gen en_US.UTF-8
+ENV LANG       en_US.UTF-8
+ENV LC_ALL     en_US.UTF-8
 
 # Set timezone
-ENV TZ Europe/Berlin
+ENV TZ Europe/London
 
 # set HOME
 # see: https://github.com/phusion/baseimage-docker#environment-variables
@@ -110,7 +110,7 @@ RUN \
     wget 'http://zello.com/data/ZelloSetup.exe' && \
     7z e ZelloSetup.exe && \
 
-    cp "de" "$ZELLO_ROOT/Lng/" && \
+    #cp "de" "$ZELLO_ROOT/Lng/" && \
     cp "en" "$ZELLO_ROOT/Lng/" && \
     cp *.wav "$ZELLO_ROOT/Snd/" && \
     cp "Zello.exe" "$ZELLO_ROOT" && \
@@ -121,11 +121,11 @@ ADD build/zello "$ZELLO_ROOT/"
 RUN chmod a+x   "$ZELLO_ROOT/zello"
 
 # zello_announce_time to cron
-ADD build/zello_announce_time "$ZELLO_ROOT/"
-RUN chmod a+x   "$ZELLO_ROOT/zello_announce_time"
+#ADD build/zello_announce_time "$ZELLO_ROOT/"
+#RUN chmod a+x   "$ZELLO_ROOT/zello_announce_time"
 
-ADD build/zello_announce_time_cron /etc/cron.d/
-RUN chmod 700 /etc/cron.d/zello_announce_time_cron
+#ADD build/zello_announce_time_cron /etc/cron.d/
+#RUN chmod 700 /etc/cron.d/zello_announce_time_cron
 
 ###############################################################################
 # CONFIGURE PHUSION/BASEIMAGE SETTINGS
